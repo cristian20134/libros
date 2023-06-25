@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SexoController;
 use App\Http\Controllers\IdiomaController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\AutorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,3 +30,6 @@ Route::get('/sexos/index', [App\Http\Controllers\SexoController::class, 'index']
 Route::resource('sexos',SexoController::class);
 Route::resource('idiomas',IdiomaController::class);
 Route::resource('categorias',CategoriaController::class);
+Route::resource('autores',AutorController::class)->parameters([
+    'autores'=>'autor'
+]);

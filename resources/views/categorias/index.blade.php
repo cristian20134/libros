@@ -23,7 +23,7 @@
 
         <div class="col-md-12 mb-3">
             <div class="pull-right">
-                <a class="btn btn-primary shadow-none" data-toggle="tooltip" data-placement="top" title="Agregar Sexo" href="{{ route('categorias.create')}}">
+                <a class="btn btn-primary shadow-none" data-toggle="tooltip" data-placement="top" title="Agregar Categoría" href="{{ route('categorias.create')}}">
                     <i class="fa fa-plus"></i>
                 </a>
             </div>

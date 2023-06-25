@@ -13,7 +13,7 @@
         <div class="col-md-12">
             <div class="card mx-auto" style="width: 50%;">
               <div class="card-header">
-                Idiomas
+                Idioma
               </div>
               <div class="card-body text-center">
                 <h5 class="card-title"><b>{{ $idioma->descripcion }}</b></h5>
