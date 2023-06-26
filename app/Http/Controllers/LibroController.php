@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Autor;
+use App\Models\Categoria;
 use App\Models\Idioma;
 use App\Models\Libro;
 use Illuminate\Http\Request;
@@ -25,7 +27,9 @@ class LibroController extends Controller
     public function create()
     {
         $idiomas = Idioma::all();
-        return view('libros.create', compact(['idiomas']));
+        $categorias = Categoria::pluck('titulo','cod_categoria');
+        $autores = Autor::pluck('nombrecompleto','cod_autor');
+        return view('libros.create', compact(['idiomas','categorias','autores']));
     }
 
 
@@ -34,10 +38,16 @@ class LibroController extends Controller
         $request->validate([
             'titulo' => 'required|min:3|max:100|unique:lib_libro',
             'descripcion' =>'required|min:3|max:200',
-            'fecha_publicacion' => 'required|date'
+            'fecha_publicacion' => 'required|date',
+            'categorias' => 'required',
+            'autores' => 'required'
         ]);
 
-        Libro::create($request->all());
+        $libro = Libro::create($request->all());
+
+        $libro->categorias()->sync($request->categorias);
+        $libro->autores()->sync($request->autores);
+
         return redirect()
         ->route('libros.index')
         ->with('success','Libro se ha registrado correctamente.');
@@ -52,7 +62,9 @@ class LibroController extends Controller
     public function edit(Libro $libro)
     {
         $idiomas = Idioma::all();
-        return view('libros.edit', compact(['idiomas','libro']));
+        $categorias = Categoria::pluck('titulo','cod_categoria');
+        $autores = Autor::pluck('nombrecompleto','cod_autor');
+        return view('libros.edit', compact(['idiomas','categorias','autores','libro']));
     }
 
 
@@ -61,7 +73,9 @@ class LibroController extends Controller
         $request->validate([
             'titulo' => 'required|min:3|max:100|unique:lib_libro,titulo,'.$libro->cod_libro.',cod_libro',
             'descripcion' =>'required|min:3|max:200',
-            'fecha_publicacion' => 'required|date'
+            'fecha_publicacion' => 'required|date',
+            'categorias' => 'required',
+            'autores' => 'required'
         ]);
 
         $libro->fill($request->only([
@@ -76,6 +90,10 @@ class LibroController extends Controller
         }
 
         $libro->update($request->all());
+
+        $libro->categorias()->sync($request->categorias);
+        $libro->autores()->sync($request->autores);
+
         return redirect()
         ->route('libros.index')
         ->with('success','Libro se ha modificado correctamente.');

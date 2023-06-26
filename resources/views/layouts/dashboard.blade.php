@@ -33,19 +33,19 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-warning" href="{{route ('sexos.index')}}">Sexos</a>
+                            <a class="nav-link text-warning {{ request()->is('sexos*') ? 'active' : ''}}" href="{{route ('sexos.index')}}">Sexos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-warning" href="{{route ('idiomas.index')}}">Idiomas</a>
+                            <a class="nav-link text-warning {{ request()->is('idiomas*') ? 'active' : ''}}" href="{{route ('idiomas.index')}}">Idiomas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-warning" href="{{route ('categorias.index')}}">Categorías</a>
+                            <a class="nav-link text-warning {{ request()->is('categorias*') ? 'active' : ''}}" href="{{route ('categorias.index')}}">Categorías</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-warning" href="{{route ('autores.index')}}">Autores</a>
+                            <a class="nav-link text-warning {{ request()->is('autores*') ? 'active' : ''}}" href="{{route ('autores.index')}}">Autores</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-warning" href="{{route ('libros.index')}}">Libros</a>
+                            <a class="nav-link text-warning {{ request()->is('libros*') ? 'active' : ''}}" href="{{route ('libros.index')}}">Libros</a>
                         </li>
                     </ul>
                     <!-- Right Side Of Navbar -->

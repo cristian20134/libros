@@ -54,6 +54,54 @@
                     </small>
                 @enderror
               </div>
+
+              <div class="col-md-6">
+                <label for="categorias" class="form-label">Categorías</label><br>
+                  @if(sizeof($categorias) > 0)
+                  @foreach ($categorias as $cod_categoria => $titulo)
+                      <input type="checkbox" value="{{ $cod_categoria }}" name="categorias[]"
+                      {{ ( is_array(old('categorias') ) && in_array($cod_categoria, old('categorias')) ) ? 'checked ' : '' }}>
+                      {{ $titulo }}<br>
+                  @endforeach
+                  <br>
+                  @error('categorias')
+                      <small class="text-danger" role="alert">
+                          {{ $message }}
+                      </small>
+                  @enderror
+                  @else
+                    <div class="alert alert-secondary">No se encontraron resultados.</div>
+                    @error('categorias')
+                        <small class="text-danger" role="alert">
+                            {{ $message }}
+                        </small>
+                    @enderror
+                @endif
+              </div>
+              <div class="col-md-6">
+                <label for="autores" class="form-label">Autores</label><br>
+                  @if(sizeof($autores) > 0)
+                  @foreach ($autores as $cod_autor => $nombrecompleto)
+                      <input type="checkbox" value="{{ $cod_autor }}" name="autores[]"
+                      {{ ( is_array(old('autores') ) && in_array($cod_autor, old('autores')) ) ? 'checked ' : '' }}>
+                      {{ $nombrecompleto }}<br>
+                  @endforeach
+                  <br>
+                  @error('autores')
+                      <small class="text-danger" role="alert">
+                          {{ $message }}
+                      </small>
+                  @enderror
+                  @else
+                    <div class="alert alert-secondary">No se encontraron resultados.</div>
+                    @error('autores')
+                      <small class="text-danger" role="alert">
+                          {{ $message }}
+                      </small>
+                  @enderror
+                @endif
+              </div>
+
               <div class="col-md-12">
                 <button type="submit" class="btn btn-primary">Guardar</button>
               </div>
