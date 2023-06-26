@@ -14,4 +14,12 @@ class Sexo extends Model
     protected $fillable = ['descripcion'];
 
     public $timestamps = false;
+
+    public function autores()
+    {
+        return $this->hasMany(Autor::class,'cod_sexo','cod_sexo');
+    }
 }
+
+
+

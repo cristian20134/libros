@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Autor;
+use App\Models\Sexo;
 use Illuminate\Http\Request;
 
 class AutorController extends Controller
@@ -32,7 +33,8 @@ class AutorController extends Controller
      */
     public function create()
     {
-        //
+        $sexos = Sexo::all();
+        return view('autores.create', compact(['sexos']));
     }
 
     /**
@@ -43,7 +45,18 @@ class AutorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombres' => 'required|min:3|max:100',
+            'apellidos' =>'required|min:3|max:100',
+            //'cod_sexo' =>'required'
+        ]);
+
+        $request['nombrecompleto'] = $request->nombres.' '.$request->apellidos;
+
+        Autor::create($request->all());
+        return redirect()
+        ->route('autores.index')
+        ->with('success','Autor se ha registrado correctamente.');
     }
 
     /**
@@ -54,7 +67,7 @@ class AutorController extends Controller
      */
     public function show(Autor $autor)
     {
-        //
+        return view('autores.show', compact(['autor']));
     }
 
     /**
@@ -65,7 +78,8 @@ class AutorController extends Controller
      */
     public function edit(Autor $autor)
     {
-        //
+        $sexos = Sexo::all();
+        return view('autores.edit', compact(['sexos','autor']));
     }
 
     /**
@@ -77,8 +91,27 @@ class AutorController extends Controller
      */
     public function update(Request $request, Autor $autor)
     {
-        //
+        $request->validate([
+            'nombres' => 'required|min:3|max:100',
+            'apellidos' =>'required|min:3|max:100',
+        ]);
+
+        $autor->fill($request->only([
+            'nombres',
+            'apellidos',
+            'cod_sexo'
+        ]));
+
+        if($autor->isClean()){
+            return back()->with('warning', 'Debe realizar al menos un cambio para actualizar');
+        }
+
+        $autor->update($request->all());
+        return redirect()
+        ->route('autores.index')
+        ->with('success','Autor se ha modificado correctamente.');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -88,6 +121,8 @@ class AutorController extends Controller
      */
     public function destroy(Autor $autor)
     {
-        //
+        $autor->delete();
+        return redirect()->route('autores.index')
+        ->with('danger', 'El autor se ha eliminado correctamente.');
     }
 }

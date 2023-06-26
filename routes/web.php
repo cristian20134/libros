@@ -6,6 +6,9 @@ use App\Http\Controllers\SexoController;
 use App\Http\Controllers\IdiomaController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\AutorController;
+use App\Http\Controllers\LibroController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,3 +36,5 @@ Route::resource('categorias',CategoriaController::class);
 Route::resource('autores',AutorController::class)->parameters([
     'autores'=>'autor'
 ]);
+Route::resource('libros',LibroController::class);
+

@@ -69,7 +69,7 @@ class CategoriaController extends Controller
     {
         $categoria->delete();
         return redirect()->route('categorias.index')
-        ->with('danger', 'Categora se ha eliminado correctamente.');
+        ->with('danger', 'Categoría se ha eliminado correctamente.');
     }
 
 }

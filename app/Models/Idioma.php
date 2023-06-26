@@ -14,4 +14,8 @@ class Idioma extends Model
     protected $fillable = ['descripcion'];
 
     public $timestamps = false;
+
+    public function libros(){
+        return $this->hasMany(Libro::class, 'cod_libro', 'cod_libro');
+    }
 }
